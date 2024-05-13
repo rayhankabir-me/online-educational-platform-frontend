@@ -1,4 +1,4 @@
-export default function SearcCourse() {
+export default function SearchCourse() {
   return (
     <form className="mx-auto">
       <label

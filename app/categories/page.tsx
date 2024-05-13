@@ -1,8 +1,5 @@
 import CategoryItem from "../components/CategoryPage/CategoryItem";
-import CourseItem from "../components/CoursePage/CourseItem";
-import FilterByCategory from "../components/CoursePage/FilterByCategory";
-import FilterByType from "../components/CoursePage/FilterByType";
-import SearcCourse from "../components/CoursePage/SearchCourse";
+import SearchCourse from "../components/CoursePage/SearchCourse";
 import HeroArea from "../components/HeroArea";
 
 export default function Categories() {
@@ -16,8 +13,7 @@ export default function Categories() {
         <div className="flex flex-row">
           <div className="basis-3/12 pr-10">
             <div className="py-16">
-              <SearcCourse />
-              <FilterByType />
+              <SearchCourse />
             </div>
           </div>
           <div className="basis-9/12">
