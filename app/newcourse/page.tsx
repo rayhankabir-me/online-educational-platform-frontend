@@ -1,10 +1,11 @@
 
 
-import ApplyInstructor from "../components/ApplyInstructor/ApplyInstructor";
-import SlidePicture from "../components/ApplyInstructor/SidePictrue";
-import HeroArea from "../components/HeroArea";
+import NewCourse from "../components/NewCourse/NewCourse";
 
-export default function applyinstructor() {
+import HeroArea from "../components/HeroArea";
+import CourseCategory from "../components/NewCourse/CourseCategory";
+
+export default function newcourse() {
   return (
     <>
       <HeroArea
@@ -15,15 +16,15 @@ export default function applyinstructor() {
         <div className="flex flex-row">
           <div className="basis-3/12 pr-10">
             <div className="py-16">
-              <ApplyInstructor />
+              <NewCourse />
               
             </div>
           </div>
           <div className="basis-9/12">
-          <div className="py-16 flex flex-wrap">
-             <SlidePicture />
+          {/* <div className="py-16 flex flex-wrap">
+             <CourseCategory />
              
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
