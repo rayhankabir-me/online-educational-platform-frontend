@@ -1,6 +1,7 @@
 import React from 'react'
 import ContractFrom from '../components/ContractFrom/ContractFrom'
 import HeroArea from '../components/HeroArea'
+import ViewContract from '../components/ContractFrom/ViewContract'
 
 const ContractUs = () => {
   return (
@@ -12,6 +13,8 @@ const ContractUs = () => {
       />
     </div>
     <div>
+      <ViewContract />
+
         <ContractFrom />
     </div>
     </>
