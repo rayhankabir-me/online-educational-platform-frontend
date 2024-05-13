@@ -1,10 +1,10 @@
 "use client";
-
+ 
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-
+ 
 export default function SearchFilter() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ export default function SearchFilter() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const router = useRouter();
   const [queryText] = useDebounce(searchText, 500);
-
+ 
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -28,43 +28,43 @@ export default function SearchFilter() {
         setLoading(false);
       }
     }
-
+ 
     fetchCategories();
   }, []);
-
+ 
   useEffect(() => {
     const queryParams = [];
-
+ 
     if (queryText) {
       queryParams.push(`term=${queryText}`);
     }
-
+ 
     if (selectedType) {
       queryParams.push(`type=${selectedType}`);
     }
     if (selectedCategoryId) {
       queryParams.push(`categoryId=${selectedCategoryId}`);
     }
-
+ 
     const queryString = queryParams.join("&");
-
+ 
     if (queryString) {
       router.push(`/courses?${queryString}`);
     } else {
       router.push(`/courses`);
     }
   }, [queryText, selectedType, selectedCategoryId, router]);
-
+ 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategoryId((prevCategoryId) =>
       prevCategoryId === categoryId ? null : categoryId
     );
   };
-
+ 
   const handleTypeChange = (type) => {
     setSelectedType((prevType) => (prevType === type ? null : type));
   };
-
+ 
   if (loading) {
     return (
       <>
@@ -95,7 +95,7 @@ export default function SearchFilter() {
       </>
     );
   }
-
+ 
   if (error) {
     return (
       <div
@@ -118,7 +118,7 @@ export default function SearchFilter() {
       </div>
     );
   }
-
+ 
   return (
     <>
       <div className="mx-auto">
@@ -155,7 +155,7 @@ export default function SearchFilter() {
           />
         </div>
       </div>
-
+ 
       <div className="mt-8">
         <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
           Filter By Category
@@ -185,7 +185,7 @@ export default function SearchFilter() {
           ))}
         </ul>
       </div>
-
+ 
       <div className="mt-8">
         <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
           Filter By Type
@@ -230,3 +230,4 @@ export default function SearchFilter() {
     </>
   );
 }
+ 
