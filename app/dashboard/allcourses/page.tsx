@@ -1,4 +1,4 @@
-export default function Dashboard() {
+export default function AllCourses() {
   return (
     <div className="p-4 sm:ml-64">
       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
@@ -20,6 +20,7 @@ export default function Dashboard() {
                   d="M9 1v16M1 9h16"
                 />
               </svg>
+              here is the all courses are showing
             </p>
           </div>
           <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">

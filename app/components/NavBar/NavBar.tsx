@@ -7,7 +7,7 @@ import NavLink from "./NavLink";
 export default function NavBar() {
   return (
     <>
-      <nav className="bg-gray-800">
+      <nav className="bg-gray-800 sticky top-0 left-0 z-40">
         <div className="container pt-2 pb-2">
           <div className="relative flex h-16 items-center justify-center">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
