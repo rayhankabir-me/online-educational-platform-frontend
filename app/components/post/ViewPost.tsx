@@ -13,7 +13,7 @@ const ViewPost = () => {
     
             <h2 className="text-lg font-semibold text-gray-900 -mt-1">Brad Adams </h2>
             <small className="text-sm text-gray-700">22h ago</small>
-            <button>Edit</button>
+            <button>Delete</button>
            
          </div>
          <p className="text-gray-700">Joined 12 SEP 2012. </p>
