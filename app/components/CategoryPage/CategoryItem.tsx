@@ -1,47 +1,51 @@
 import Link from "next/link";
+import Image from "next/image";
+//import CategoryImage from "../../../public/category_image.webp";
 
-/* eslint-disable @next/next/no-img-element */
-export default function CategoryItem() {
+export default function CategoryItem({ category }) {
+  const { id, category_name, description, created_by } = category;
+
   return (
     <div className="max-w-sm w-full sm:w-1/2 lg:w-1/3 px-4 pb-8">
-      <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
+      <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        {/* <a href="#">
+          <Image
+            width={800}
+            height={500}
             className="rounded-t-lg"
-            src="/docs/images/blog/image-1.jpg"
-            alt=""
+            src={CategoryImage}
+            alt="Category Image"
           />
-        </a>
+        </a> */}
         <div className="p-5">
           <a href="#">
             <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Description
+              {description}
             </h5>
           </a>
           <div className="text-sm mb-4 flex items-center justify-between">
-          <p className="text-gray-700 dark:text-gray-400">
+            <p className="text-gray-700 dark:text-gray-400">
               Category:{" "}
               <span className="font-semibold text-gray-900 dark:text-white">
-                Mathematics
+                {category_name}
               </span>
             </p>
 
             <p className="text-gray-700 dark:text-gray-400">
               Created by:{" "}
               <span className="font-semibold text-gray-900 dark:text-white">
-                Admin
+                {created_by.username}
               </span>
             </p>
-
           </div>
           <div className="flex items-center justify-between">
             <Link
-              href="#"
+              href={`/categories`}
               className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
             >
               View Courses
               <svg
-                className=" w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
