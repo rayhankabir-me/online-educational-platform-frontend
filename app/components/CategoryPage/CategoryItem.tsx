@@ -1,9 +1,29 @@
+import axios from "axios";
 import Link from "next/link";
-import Image from "next/image";
 //import CategoryImage from "../../../public/category_image.webp";
 
-export default function CategoryItem({ category }) {
+export default function CategoryItem({ category, setEditCategory, setReload }) {
   const { id, category_name, description, created_by } = category;
+  const isAdmin = true;
+
+  const handleDelete = async () => {
+    const url = "http://localhost:3000/categories/" + category.id;
+    const config = {
+      headers: {
+        //nije likh token from postman after logging in
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yaXR0aWthIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE1Njk5Njc0LCJleHAiOjE3MTU3MDMyNzR9.oRsBcHVWno2xDJj9ZsoF1r4Tz3BsX9jWo-4cPZVmzAg",
+      },
+    };
+    try {
+      const res = await axios.delete(url, config);
+      console.log(res);
+      setReload((oldValue) => oldValue + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="max-w-sm w-full sm:w-1/2 lg:w-1/3 px-4 pb-8">
@@ -60,6 +80,54 @@ export default function CategoryItem({ category }) {
                 />
               </svg>
             </Link>
+
+            {isAdmin ? (
+              <button
+                onClick={() => setEditCategory(category)}
+                className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+              >
+                Edit
+                <svg
+                  className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+              </button>
+            ) : null}
+
+            {isAdmin ? (
+              <button
+                onClick={handleDelete}
+                className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+              >
+                Delete
+                <svg
+                  className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

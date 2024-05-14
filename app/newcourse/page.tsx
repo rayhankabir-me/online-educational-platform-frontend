@@ -9,8 +9,8 @@ export default function newcourse() {
   return (
     <>
       <HeroArea
-        title="Teach with Us: Apply to be an Instructor"
-        description="Apply to become an instructor on our platform! We're looking for passionate individuals like you to teach and inspire learners worldwide. Show us what you know, and help shape the future of online education. Apply now and start making a difference!."
+        title="Custom Course Requests: Your Learning, Your Way"
+        description="Welcome to our Course Request page! Here, you can ask for specific courses you want to take or suggest new topics for your need. Just fill out a short form with what you're interested in, and we'll do our best to make it happen. Let's work together to make your learning experience even better! "
       />
       <div className="container mx-auto">
         <div className="flex flex-row">

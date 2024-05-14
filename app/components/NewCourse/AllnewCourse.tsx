@@ -1,19 +1,17 @@
-"use client";
+'use client'
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-function Allapplicants() {
-  const [applicants, setApplicants] = useState([]);
+function AllnewCourse() {
+  const [newcourse, setNewcourse] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/applyinstructor/Admin/all"
-        );
-        setApplicants(response.data);
+        const response = await axios.get("http://localhost:5000/newcourse/all");
+        setNewcourse(response.data);
       } catch (error) {
-        console.error("Error fetching applicants:", error);
+        console.error("Error fetching newcourse:", error);
       }
     };
 
@@ -22,27 +20,22 @@ function Allapplicants() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/applyinstructor/${id}`);
+      await axios.delete(`http://localhost:5000/newcourse/Admin/newcourse/${id}`);
       // Update the local state to reflect the deletion
-      setApplicants(applicants.filter((applicant) => applicant.id !== id));
+      setNewcourse(newcourse.filter((newcourse) => newcourse.id !== id));
     } catch (error) {
-      console.error("Error deleting applicant:", error);
+      console.error("Error deleting newcourse:", error);
     }
   };
 
   const handleApprove = async (id) => {
     try {
-      await axios.patch(
-        `http://localhost:5000/applyinstructor/Admin/applyinstructor/${id}`
-      );
-      // Update the local state to reflect the approval
-      setApplicants(
-        applicants.map((applicant) =>
-          applicant.id === id ? { ...applicant, approval: true } : applicant
-        )
-      );
+      await axios.patch(`http://localhost:5000/newcourse/Admin/${id}`);
+      
+      setNewcourse(newcourse.map((newcourse) =>newcourse.id === id ? { ...newcourse, approval: true } : newcourse ));
+      
     } catch (error) {
-      console.error("Error approving applicant:", error);
+      console.error("Error approving newcourse:", error);
     }
   };
 
@@ -54,16 +47,19 @@ function Allapplicants() {
           <thead>
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                Name
+                Course Name
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Course Catagory
+              </th>
+              <th className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
                 Email
               </th>
               <th className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                Phone
+                Desciption
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                Status
+              Status
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
                 Action
@@ -71,30 +67,25 @@ function Allapplicants() {
             </tr>
           </thead>
           <tbody>
-            {applicants.map((applicant, index) => (
-              <tr key={index} className="bg-gray divide-y divide-gray-200">
+            {newcourse.map((newcourse, index) => (
+              <tr key={index} className="bg-black divide-y divide-gray-200">
+                <td className="px-6 py-4 whitespace-nowrap">{newcourse.coursename}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{newcourse.coursecategory}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{newcourse.email}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{newcourse.Desciption}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {applicant.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {applicant.email}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {applicant.phone}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {applicant.approval ? "Instructor" : "Student"}
+                  {newcourse.approval ? "Instructor" : "Student"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
-                    onClick={() => handleDelete(applicant.id)}
+                    onClick={() => handleDelete(newcourse.id)}
                     className="text-red-500 hover:text-red-700 mr-2"
                   >
                     Delete
                   </button>
-                  {!applicant.approval && (
+                  {!newcourse.approval && (
                     <button
-                      onClick={() => handleApprove(applicant.id)}
+                      onClick={() => handleApprove(newcourse.id)}
                       className="text-green-500 hover:text-green-700"
                     >
                       Approve
@@ -110,4 +101,4 @@ function Allapplicants() {
   );
 }
 
-export default Allapplicants;
+export default AllnewCourse;

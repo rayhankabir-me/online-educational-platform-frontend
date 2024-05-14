@@ -11,6 +11,8 @@ export default function Home() {
     <div className="flex justify-center space-x-4">
     <a href="/courses" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Courses</a>
     <a href="/AllPost" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Posts</a>
+    <a href="/carts" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Carts</a>
+    <a href="/ContractUs" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Contact Form</a>
     <a href="/categories" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Categories</a>
     <a href="/applyinstructor" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Want to be an Instructor? - Apply</a>
   </div>
