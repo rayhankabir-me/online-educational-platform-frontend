@@ -22,7 +22,7 @@ const CartItem = () => {
       try {
         const response = await axios.get("http://localhost:3000/cart/forMe", {
           headers: {
-            Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yaXR0aWthIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE1Njk5Njc0LCJleHAiOjE3MTU3MDMyNzR9.oRsBcHVWno2xDJj9ZsoF1r4Tz3BsX9jWo-4cPZVmzAg",
+            Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yaXR0aWthIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE1NzE1NTg4LCJleHAiOjE3MTU3MTkxODh9.jH4RmgWjedN-b_JNdUJTtD9fyyB5IFvEM0nIDtPt8DQ",
           },
         });
         setCarts(response.data);
@@ -34,22 +34,17 @@ const CartItem = () => {
     fetchCarts();
   }, []);
 
-  return (
-    <>
-      {carts.map((cart) => (
-        <div key={cart.course_id} className="max-w-sm w-full sm:w-1/2 lg:w-1/3 px-4 pb-8">
+return (
+  <>
+    {carts.map((cart) => (
+      <div className="flex justify-center" key={cart.course_id}>
+        <div className="max-w-sm w-full sm:w-1/2 lg:w-1/3 px-4 pb-8">
           <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-5">
               <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Course ID: {cart.course_id}
               </h5>
               <div className="text-sm mb-4 flex items-center justify-between">
-                {/* <p className="text-gray-700 dark:text-gray-400">
-                  Category ID:{" "}
-                  <span className="font-semibold text-gray-900 dark:text-white">
-                    {cart.category_id}
-                  </span>
-                </p> */}
                 <p className="text-gray-700 dark:text-gray-400">
                   No of Items:{" "}
                   <span className="font-semibold text-gray-900 dark:text-white">
@@ -72,7 +67,7 @@ const CartItem = () => {
                 </p>
               </div>
               <div className="flex items-center justify-between">
-                {/* <Link href={`/courses/${cart.course_id}`}>
+                <a href={`/courses/${cart.course_id}`}>
                   <a className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
                     View Course
                     <svg
@@ -91,14 +86,16 @@ const CartItem = () => {
                       />
                     </svg>
                   </a>
-                </Link> */}
+                </a>
               </div>
             </div>
           </div>
+          
         </div>
-      ))}
-    </>
-  );
+      </div>
+    ))}
+  </>
+);
 };
 
 export default CartItem;
