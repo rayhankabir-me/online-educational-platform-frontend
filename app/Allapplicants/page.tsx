@@ -23,7 +23,7 @@ function Allapplicants() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/applyinstructor/${id}`);
-      // Update the local state to reflect the deletion
+      
       setApplicants(applicants.filter((applicant) => applicant.id !== id));
     } catch (error) {
       console.error("Error deleting applicant:", error);
@@ -35,7 +35,7 @@ function Allapplicants() {
       await axios.patch(
         `http://localhost:3000/applyinstructor/Admin/applyinstructor/${id}`
       );
-      // Update the local state to reflect the approval
+     
       setApplicants(
         applicants.map((applicant) =>
           applicant.id === id ? { ...applicant, approval: true } : applicant
@@ -83,7 +83,7 @@ function Allapplicants() {
                   {applicant.phone}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {applicant.approval ? "Instructor" : "Student"}
+                  {applicant.approval ? "instructor" : "student"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
