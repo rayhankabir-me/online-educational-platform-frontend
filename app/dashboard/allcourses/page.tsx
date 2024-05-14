@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import CourseImage from "../../../public/course_image.webp";
 export default function AllCourses() {
@@ -145,12 +146,12 @@ export default function AllCourses() {
                     <td className="px-6 py-4">{course.created_at}</td>
                     <td className="px-6 py-4">{course.created_by.username}</td>
                     <td className="flex items-center px-6 py-4">
-                      <a
-                        href="#"
+                      <Link
+                        href={`/dashboard/update-course/${course.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
-                      </a>
+                      </Link>
                       <a
                         href="#"
                         className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
