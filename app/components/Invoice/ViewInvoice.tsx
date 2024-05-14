@@ -1,0 +1,112 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import axios from "axios";
+
+const ViewInvoice = () => {
+  const [invoices, setInvoices] = useState([]);
+
+  useEffect(() => {
+    // Fetch all invoices from the API
+    const fetchInvoices = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/invoice");
+        setInvoices(response.data);
+      } catch (error) {
+        console.error("Error fetching invoices:", error);
+      }
+    };
+
+    fetchInvoices();
+  }, []);
+
+  const groupedInvoices = invoices.reduce<{ [key: string]: any[] }>(
+    (acc, invoice) => {
+      const { transactionId } = invoice;
+      if (!acc[transactionId]) {
+        acc[transactionId] = [];
+      }
+      acc[transactionId].push(invoice);
+      return acc;
+    },
+    {}
+  );
+
+  return (
+    <div>
+      {Object.keys(groupedInvoices).map((transactionId) => (
+        <div
+          key={transactionId}
+          className="flex h-screen w-full items-center justify-center bg-gray-600"
+        >
+          <div className="w-80 rounded bg-gray-50 px-6 pt-8 shadow-lg">
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="relative w-20 h-16">
+                <Image
+                  src="/edumastery-logo.png"
+                  alt="Edu Mastery Logo"
+                  layout="fill"
+                />
+              </div>
+              <h4 className="font-semibold">Edu Mastery</h4>
+            </div>
+            {groupedInvoices[transactionId].map((invoice, index) => (
+              <div
+                key={`${transactionId}-${index}`}
+                className="flex flex-col gap-3 border-b py-6 text-xs"
+              >
+                {index === 0 && (
+                  <>
+                    <p className="flex justify-between">
+                      <span className="text-gray-400">Invoice Number:</span>
+                      <span>#{invoice.inv_number}</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-gray-400">Customer Name:</span>
+                      <span>{invoice.customerName}</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-gray-400">Email:</span>
+                      <span>{invoice.email}</span>
+                    </p>
+                    
+
+                    <div className="flex flex-col gap-3 pb-6 pt-2 text-xs">
+                      <table className="w-full text-left">
+                        <thead>
+                          <tr className="flex">
+                            <th className="w-full py-2 font-bold text-lg">
+                              Product
+                            </th>
+                            <th className="min-w-[44px] py-2 font-bold text-lg">
+                              Price
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                      
+                    </div>
+                  </>
+                )}
+
+                <div className="flex flex-col gap-1 text-xs">
+                  <table className="w-full text-left">
+                    <tbody>
+                      <tr className="flex">
+                        <td className="flex-1">{invoice.courseName}</td>
+                        <td className="min-w-[44px]">${invoice.paidAmount}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ViewInvoice;
