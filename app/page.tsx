@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import bg from "../public/bg.png";
 
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col justify-center items-center relative">
@@ -14,6 +15,7 @@ export default function Home() {
     <a href="/carts" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Carts</a>
     <a href="/ContractUs" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Contact Form</a>
     <a href="/categories" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Categories</a>
+    <a href="/bookStore" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Book Store</a>
     <a href="/applyinstructor" className="text-blue-700 border border-blue-700 hover:bg-blue-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-blue-600 dark:hover:bg-blue-100 focus:outline-none dark:focus:ring-blue-800">Want to be an Instructor? - Apply</a>
   </div>
 </div>
@@ -26,6 +28,9 @@ export default function Home() {
           className="opacity-20"
         />
       </div>
+      <footer className="absolute bottom-0 left-0 w-full bg-gray-800 text-center py-2">
+        <p className="text-sm text-gray-400">© {new Date().getFullYear()} Edu Mastery. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

@@ -12,8 +12,7 @@ export default function CategoryItem({ category, setEditCategory, setReload }) {
       headers: {
         //nije likh token from postman after logging in
         Authorization:
-          "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yaXR0aWthIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE1Njk5Njc0LCJleHAiOjE3MTU3MDMyNzR9.oRsBcHVWno2xDJj9ZsoF1r4Tz3BsX9jWo-4cPZVmzAg",
+          "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yaXR0aWthIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE1NzE1NTg4LCJleHAiOjE3MTU3MTkxODh9.jH4RmgWjedN-b_JNdUJTtD9fyyB5IFvEM0nIDtPt8DQ",
       },
     };
     try {
