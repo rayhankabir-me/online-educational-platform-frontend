@@ -8,8 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CourseImage from "../../../public/course_image.webp";
-export default function AllCourses() {
-  const [courses, setCourses] = useState([]);
+export default function AllCategories() {
+  const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState(null);
@@ -21,14 +21,14 @@ export default function AllCourses() {
     setAccessToken(access_token);
   }, []);
 
-  //getting the courses data
+  //getting the categories data
   useEffect(() => {
-    async function fetchCourses() {
+    async function fetchCategories() {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_BACKEND_API + "/courses/"
+          process.env.NEXT_PUBLIC_BACKEND_API + "/categories/"
         );
-        setCourses(response.data);
+        setCategories(response.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -36,7 +36,7 @@ export default function AllCourses() {
       }
     }
 
-    fetchCourses();
+    fetchCategories();
   }, []);
 
   //delete course
@@ -128,24 +128,16 @@ export default function AllCourses() {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
+                  <th scope="col" className="px-6 py-3"></th>
                   <th scope="col" className="px-6 py-3">
-                    Course Image
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Course Title
+                    Image Url
                   </th>
 
                   <th scope="col" className="px-6 py-3">
-                    Category
+                    Name
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Price
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Rating
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Created At
+                    Description
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Created By
@@ -156,9 +148,9 @@ export default function AllCourses() {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course) => (
+                {categories.map((category) => (
                   <tr
-                    key={course.id}
+                    key={category.id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
                     <th
@@ -172,23 +164,22 @@ export default function AllCourses() {
                         alt="Courese Image"
                       />
                     </th>
-                    <td className="px-6 py-4">{course.title}</td>
+
+                    <td className="px-6 py-4">{category.category_name}</td>
+                    <td className="px-6 py-4"> {category.description}</td>
+
                     <td className="px-6 py-4">
-                      {course.category.category_name}
+                      {category.created_by.username}
                     </td>
-                    <td className="px-6 py-4"> {course.price}</td>
-                    <td className="px-6 py-4"> {course.rating}</td>
-                    <td className="px-6 py-4">{course.created_at}</td>
-                    <td className="px-6 py-4">{course.created_by.username}</td>
                     <td className="flex items-center px-6 py-4">
                       <Link
-                        href={`/dashboard/update-course/${course.id}`}
+                        href={`/dashboard/update-course/${category.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
                       </Link>
                       <button
-                        onClick={() => handleDeleteCourse(course.id)}
+                        onClick={() => handleDeleteCourse(category.id)}
                         className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                       >
                         Remove
