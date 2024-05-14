@@ -19,7 +19,7 @@ const ContractForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/contract-form', formData);
+      await axios.post('http://localhost:3000/contract-form', formData);
       setSubmissionMessage('Form submission is successful!');
       setTimeout(() => {
         setSubmissionMessage('');

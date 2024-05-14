@@ -10,7 +10,7 @@ const CreatePost = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:5000/blog", { user_name, psot_title, description });
+      await axios.post("http://localhost:3000/blog", { user_name, psot_title, description });
       setSuccessMessage("Post successful");
       setTimeout(() => {
         setSuccessMessage('');

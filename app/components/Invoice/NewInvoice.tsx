@@ -26,7 +26,7 @@ const NewInvoice = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/invoice', {
+      await axios.post('http://localhost:3000/invoice', {
         invoiceNumber,
         customerName,
         customerEmail,
@@ -34,11 +34,11 @@ const NewInvoice = () => {
         transactionId,
         purchasedDate,
       });
-      // Redirect to invoice success page or do something else
+    
       router.push('/invoice/success');
     } catch (error) {
       console.error('Error submitting invoice:', error);
-      // Handle error, show error message, etc.
+      
     }
   };
 

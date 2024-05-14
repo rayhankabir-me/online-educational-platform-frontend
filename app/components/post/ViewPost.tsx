@@ -18,7 +18,7 @@ const ViewPost = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blog");
+        const response = await axios.get("http://localhost:3000/blog");
         const initialPosts = response.data.map((post: Post) => ({
           ...post,
           count: 0,
@@ -49,7 +49,7 @@ const ViewPost = () => {
 
   const handleDeletePost = async (user_Id: number) => {
     try {
-      await axios.delete(`http://localhost:5000/blog/${user_Id}`);
+      await axios.delete(`http://localhost:3000/blog/${user_Id}`);
       
       setPosts((prevPosts) =>
         prevPosts.filter((post) => post.user_id !== user_Id)
@@ -62,7 +62,7 @@ const ViewPost = () => {
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:5000/blog/${searchQuery}`);
+      const response = await axios.get(`http://localhost:3000/blog/${searchQuery}`);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);

@@ -16,7 +16,7 @@ const ViewContract: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/contract-form');
+        const response = await axios.get('http://localhost:3000/contract-form');
         setContractForms(response.data);
       } catch (error) {
         console.error('Error fetching contract forms:', error);
@@ -28,7 +28,7 @@ const ViewContract: React.FC = () => {
 
   const handleAnswerSubmit = async (contractId: string, answer: string) => {
     try {
-      await axios.patch(`http://localhost:5000/contract-form/${contractId}`, { answer });
+      await axios.patch(`http://localhost:3000/contract-form/${contractId}`, { answer });
       // Optionally, you can update the UI or show a success message here
     } catch (error) {
       console.error('Error submitting answer:', error);

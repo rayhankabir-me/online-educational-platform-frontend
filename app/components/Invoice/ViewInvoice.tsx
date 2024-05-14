@@ -10,7 +10,7 @@ const ViewInvoice = () => {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/invoice");
+        const response = await axios.get("http://localhost:3000/invoice");
         setInvoices(response.data);
       } catch (error) {
         console.error("Error fetching invoices:", error);
@@ -23,7 +23,7 @@ const ViewInvoice = () => {
 
   const handleDeleteInvoice = async (invNumber: string) => {
     try {
-      await axios.delete(`http://localhost:5000/invoice/${invNumber}`);
+      await axios.delete(`http://localhost:3000/invoice/${invNumber}`);
       setInvoices((prevInvoices) =>
         prevInvoices.filter((invoice) => invoice.inv_number !== invNumber)
       );
