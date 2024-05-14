@@ -65,7 +65,7 @@ function Allapplicants() {
           </thead>
           <tbody>
             {applicants.map((applicant, index) => (
-              <tr key={index} className="bg-black divide-y divide-gray-200">
+              <tr key={index} className="bg-gray divide-y divide-gray-200">
                 <td className="px-6 py-4 whitespace-nowrap">{applicant.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{applicant.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{applicant.phone}</td>
