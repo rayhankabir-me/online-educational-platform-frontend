@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import CategoryItem from "../components/CategoryPage/CategoryItem";
 import HeroArea from "../components/HeroArea";
 import Search from "../components/CategoryPage/Search";
+import Link from "next/link";
+import AddCategory from "../components/CategoryPage/AddCategory";
 
 export default function Courses({ searchParams }) {
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const isAdmin = true;
+  const [editCategory, setEditCategory] = useState("");
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +34,7 @@ export default function Courses({ searchParams }) {
       }
     }
     fetchData();
-  }, [searchParams]);
+  }, [searchParams, reload]);
 
   useEffect(() => {
     if (searchParams && searchParams.categoryId) {
@@ -51,7 +56,8 @@ export default function Courses({ searchParams }) {
             {<Search />}
           </div>
         </div>
-        <div className="py-16 flex flex-wrap">
+        {isAdmin?<AddCategory editCategory={editCategory} setReload={setReload}/> : null}
+        <div className="py-16 flex flex-wrap">        
           {error ? (
             <div
               className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -67,6 +73,7 @@ export default function Courses({ searchParams }) {
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
               </svg>
               <span className="sr-only">Info</span>
+
               <div>
                 <span className="font-medium">Error!</span> {error.message}.
               </div>
@@ -75,7 +82,7 @@ export default function Courses({ searchParams }) {
             <div>Loading...</div>
           ) : filteredCategories.length > 0 ? ( 
             filteredCategories.map((category) => (
-              <CategoryItem key={category.id} category={category} />
+              <CategoryItem key={category.id} category={category} setEditCategory={setEditCategory} setReload={setReload}/>
             ))
           ) : (
             <div
