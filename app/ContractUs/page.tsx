@@ -4,6 +4,8 @@ import HeroArea from '../components/HeroArea'
 import ViewContract from '../components/ContractFrom/ViewContract'
 
 const ContractUs = () => {
+  const isAdmin =true;
+  const isStudent = false
   return (
     <>
     <div>
@@ -13,9 +15,9 @@ const ContractUs = () => {
       />
     </div>
     <div>
-      <ViewContract />
+      {isAdmin && <ViewContract />}
 
-        <ContractFrom />
+        {isStudent && <ViewContract />}
     </div>
     </>
     

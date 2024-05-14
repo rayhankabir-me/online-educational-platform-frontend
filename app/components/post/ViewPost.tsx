@@ -13,6 +13,7 @@ const ViewPost = () => {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const isAdmin = true; 
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,20 +33,31 @@ const ViewPost = () => {
     fetchPosts();
   }, []);
 
- const handleLikeClick = (userId: number) => {
-  setPosts((prevPosts) =>
-    prevPosts.map((post) =>
-      post.user_id === userId
-        ? {
-            ...post,
-            count: post.count + 1,
-            isLiked: true,
-          }
-        : post
-    )
-  );
-};
+  const handleLikeClick = (userId: number) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.user_id === userId
+          ? {
+              ...post,
+              count: post.count + 1,
+              isLiked: true,
+            }
+          : post
+      )
+    );
+  };
 
+  const handleDeletePost = async (user_Id: number) => {
+    try {
+      await axios.delete(`http://localhost:5000/blog/${user_Id}`);
+      
+      setPosts((prevPosts) =>
+        prevPosts.filter((post) => post.user_id !== user_Id)
+      );
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
 
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -123,7 +135,7 @@ const ViewPost = () => {
                 <h2 className="text-lg font-semibold text-gray-900 -mt-1">
                   {post.user_name}
                 </h2>
-                <button>Delete</button>
+                {isAdmin && <button onClick={() => handleDeletePost(post.user_id)}>Delete</button>}
               </div>
               <p className="mt-3 text-gray-700 text-sm">{post.description}</p>
             </div>

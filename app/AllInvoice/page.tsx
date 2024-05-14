@@ -3,12 +3,13 @@ import NewInvoice from '../components/Invoice/NewInvoice'
 import ViewInvoice from '../components/Invoice/ViewInvoice'
 
 const AllInvoice = () => {
+
+  const isAdmin = true;
+  const isUser = false;
   return (
     <div>
-        <NewInvoice/>
-
-        <h1>here are</h1>
-        <ViewInvoice/>
+        {isUser && <NewInvoice/>}
+        {isAdmin && <ViewInvoice/>}
 
 
     </div>

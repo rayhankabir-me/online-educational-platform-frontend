@@ -14,22 +14,18 @@ const NewInvoice = () => {
   const [purchasedDate, setPurchasedDate] = useState<string>('');
 
   useEffect(() => {
-    // Simulate data retrieval from session or payment page
     setCustomerName('John Doe');
     setCustomerEmail('john@example.com');
-    setPaidAmount(50); // Assuming $50
-    setTransactionId('20220423001'); // Sample transaction id
+    setPaidAmount(50); 
+    setTransactionId('20220423001'); 
     const currentDate = new Date();
     setPurchasedDate(currentDate.toISOString());
-    
-    // Generate random invoice number (e.g., a random 4-digit number)
     const randomInvoiceNumber = Math.floor(1000 + Math.random() * 9000).toString();
     setInvoiceNumber(randomInvoiceNumber);
   }, []);
 
   const handleSubmit = async () => {
     try {
-      // Send invoice data to backend API
       await axios.post('http://localhost:5000/invoice', {
         invoiceNumber,
         customerName,
