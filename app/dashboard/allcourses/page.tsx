@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,7 +12,14 @@ export default function AllCourses() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
+
+  //getting the access token for user
+  useEffect(() => {
+    const access_token = Cookies.get("access_token");
+    setAccessToken(access_token);
+  }, []);
 
   //getting the courses data
   useEffect(() => {
@@ -30,6 +38,33 @@ export default function AllCourses() {
 
     fetchCourses();
   }, []);
+
+  //delete course
+  const handleDeleteCourse = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(
+        process.env.NEXT_PUBLIC_BACKEND_API + `/courses/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      // Refresh courses after deletion
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BACKEND_API + "/courses/"
+      );
+      setCourses(response.data);
+    } catch (error) {
+      alert("Error deleting course:", error);
+      // Handle error here
+    }
+  };
 
   if (loading) {
     return (
@@ -152,12 +187,12 @@ export default function AllCourses() {
                       >
                         Edit
                       </Link>
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => handleDeleteCourse(course.id)}
                         className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                       >
                         Remove
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}
