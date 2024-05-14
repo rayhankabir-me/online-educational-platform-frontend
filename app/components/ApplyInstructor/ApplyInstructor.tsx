@@ -9,7 +9,7 @@ export default function ApplyInstructor() {
   const [phone, setNumber] = useState(" ");
   const saveclick = async () => {
     try {
-      await axios.post("http://localhost:5000/applyinstructor/create", {
+      await axios.post("http://localhost:3000/applyinstructor/create", {
         name,
         email,
         phone,

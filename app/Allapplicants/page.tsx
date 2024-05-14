@@ -9,7 +9,7 @@ function Allapplicants() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/applyinstructor/Admin/all"
+          "http://localhost:3000/applyinstructor/Admin/all"
         );
         setApplicants(response.data);
       } catch (error) {
@@ -22,7 +22,7 @@ function Allapplicants() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/applyinstructor/${id}`);
+      await axios.delete(`http://localhost:3000/applyinstructor/${id}`);
       // Update the local state to reflect the deletion
       setApplicants(applicants.filter((applicant) => applicant.id !== id));
     } catch (error) {
@@ -33,7 +33,7 @@ function Allapplicants() {
   const handleApprove = async (id) => {
     try {
       await axios.patch(
-        `http://localhost:5000/applyinstructor/Admin/applyinstructor/${id}`
+        `http://localhost:3000/applyinstructor/Admin/applyinstructor/${id}`
       );
       // Update the local state to reflect the approval
       setApplicants(

@@ -8,8 +8,9 @@ function AllnewCourse() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/newcourse/all");
+        const response = await axios.get("http://localhost:3000/newcourse/admin/all");
         setNewcourse(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching newcourse:", error);
       }
@@ -20,7 +21,7 @@ function AllnewCourse() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/newcourse/Admin/newcourse/${id}`);
+      await axios.delete(`http://localhost:3000/newcourse/Admin/newcourse/${id}`);
       // Update the local state to reflect the deletion
       setNewcourse(newcourse.filter((newcourse) => newcourse.id !== id));
     } catch (error) {
@@ -30,7 +31,7 @@ function AllnewCourse() {
 
   const handleApprove = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/newcourse/Admin/${id}`);
+      await axios.patch(`http://localhost:3000/newcourse/Admin/${id}`);
       
       setNewcourse(newcourse.map((newcourse) =>newcourse.id === id ? { ...newcourse, approval: true } : newcourse ));
       
@@ -67,25 +68,25 @@ function AllnewCourse() {
             </tr>
           </thead>
           <tbody>
-            {newcourse.map((newcourse, index) => (
-              <tr key={index} className="bg-black divide-y divide-gray-200">
-                <td className="px-6 py-4 whitespace-nowrap">{newcourse.coursename}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{newcourse.coursecategory}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{newcourse.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{newcourse.Desciption}</td>
+            {newcourse.map((item, index) => (
+              <tr key={index} className="bg-gray divide-y divide-gray-200">
+                <td className="px-6 py-4 whitespace-nowrap">{item?.coursename}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item?.coursecategory}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item?.email}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item?.Description}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {newcourse.approval ? "Instructor" : "Student"}
+                  {item?.approval ? "Accepted" : "Pending.."}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
-                    onClick={() => handleDelete(newcourse.id)}
+                    onClick={() => handleDelete(item?.id)}
                     className="text-red-500 hover:text-red-700 mr-2"
                   >
                     Delete
                   </button>
-                  {!newcourse.approval && (
+                  {!item?.approval && (
                     <button
-                      onClick={() => handleApprove(newcourse.id)}
+                      onClick={() => handleApprove(item?.id)}
                       className="text-green-500 hover:text-green-700"
                     >
                       Approve

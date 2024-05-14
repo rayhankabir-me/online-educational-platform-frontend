@@ -9,7 +9,7 @@ export default function NewCourse() {
   const [Description, setDescription] = useState(" ");
   const saveclick = async () => {
     try {
-      await axios.post("http://localhost:5000/newcourse/create", {
+      await axios.post("http://localhost:3000/newcourse/create", {
         coursename,
         email,
         coursecategory,
