@@ -6,7 +6,7 @@ export default function CourseItem({ course }) {
   return (
     <div className="max-w-sm w-full sm:w-1/2 lg:w-1/3 px-4 pb-8">
       <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
+        <Link href={`/courses/${course.id}`}>
           <Image
             width={800}
             height={500}
@@ -14,13 +14,13 @@ export default function CourseItem({ course }) {
             src={CourseImage}
             alt="Course Image"
           />
-        </a>
+        </Link>
         <div className="p-5">
-          <a href="#">
+          <Link href={`/courses/${id}`}>
             <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {title}
             </h5>
-          </a>
+          </Link>
           <div className="text-sm mb-4 flex items-center justify-between">
             <p className="text-gray-700 dark:text-gray-400">
               By:{" "}
