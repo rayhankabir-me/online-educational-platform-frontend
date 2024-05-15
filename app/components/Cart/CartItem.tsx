@@ -177,20 +177,19 @@ function CartItem() {
                   onClick={() => handleUpdate(item.course_id, item.no_of_items + 1)}
                   className="text-blue-500 hover:text-blue-700 mr-2"
                 >
-                  Update (+)
+                  Update +
                 </button>
                 <button
                   onClick={() => handleUpdate(item.course_id, item.no_of_items - 1)}
                   className="text-blue-500 hover:text-blue-700"
                 >
-                  (-)
+                  -
                 </button>
-                <div></div>
                 <button
                   onClick={() => handleDelete(item.course_id)}
                   className="text-red-500 hover:text-red-700 ml-2"
                 >
-                  Delete
+                  Delete x
                 </button>
               </td>
             </tr>
