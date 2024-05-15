@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const ViewPost = () => {
   interface Post {
@@ -14,11 +15,18 @@ const ViewPost = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const isAdmin = true; 
+  const access_token = Cookies.get("access_token");
+  console.log(access_token);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/blog");
+        const response = await axios.get("http://localhost:3000/blog", {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          
+        });
         const initialPosts = response.data.map((post: Post) => ({
           ...post,
           count: 0,
@@ -49,7 +57,11 @@ const ViewPost = () => {
 
   const handleDeletePost = async (user_Id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/blog/${user_Id}`);
+      await axios.delete(`http://localhost:3000/blog/${user_Id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
       
       setPosts((prevPosts) =>
         prevPosts.filter((post) => post.user_id !== user_Id)
@@ -62,7 +74,11 @@ const ViewPost = () => {
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:3000/blog/${searchQuery}`);
+      const response = await axios.get(`http://localhost:3000/blog/${searchQuery}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);

@@ -1,16 +1,26 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const CreatePost = () => {
   const [user_name, setUserName] = useState('Abdullah');
   const [psot_title, setPostTitle] = useState('');
   const [description, setDescription] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const access_token = Cookies.get("access_token");
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3000/blog", { user_name, psot_title, description });
+      await axios.post(
+        "http://localhost:3000/blog",
+        { user_name, psot_title, description },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
       setSuccessMessage("Post successful");
       setTimeout(() => {
         setSuccessMessage('');
@@ -18,7 +28,6 @@ const CreatePost = () => {
       }, 3000);
     } catch (error) {
       console.error("Error creating post:", error);
-      
     }
   };
 
