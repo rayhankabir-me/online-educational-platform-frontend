@@ -1,11 +1,9 @@
 "use client";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function CartItem() {
   const [cart, setCart] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +12,6 @@ function CartItem() {
         setCart(response.data);
       } catch (error) {
         console.error("Error fetching cart items:", error);
-        setError("Failed to fetch cart items.");
       }
     };
 
@@ -27,16 +24,10 @@ function CartItem() {
       setCart(cart.filter((item) => item.course_id !== course_id));
     } catch (error) {
       console.error("Error deleting cart item:", error);
-      setError("Failed to delete cart item.");
     }
   };
 
   const handleUpdate = async (course_id, newNoOfItems) => {
-    if (newNoOfItems < 0) {
-      setError("Number of items cannot be negative.");
-      return;
-    }
-
     try {
       await axios.patch(`http://localhost:3000/cart/${course_id}`, {
         no_of_items: newNoOfItems,
@@ -48,39 +39,36 @@ function CartItem() {
             : item
         )
       );
-      setError(null); // Clear any previous errors
     } catch (error) {
       console.error("Error updating cart item:", error);
-      setError("Failed to update cart item.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-full p-4">
-      {error && <div className="mb-4 text-red-500">{error}</div>}
-      <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg">
-        <thead className="bg-gray-50">
+    <div className="flex justify-center items-center h-full">
+      <table className="min-w-full divide-y divide-gray-200 py-3">
+        <thead>
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Course ID
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+              Course id
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Number of Items
+              Number of items
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
               Price
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
               Created By
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
               Action
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
-          {cart.map((item) => (
-            <tr key={item.course_id} className="bg-white">
+        <tbody>
+          {cart.map((item, index) => (
+            <tr key={index} className="bg-black divide-y divide-gray-200">
               <td className="px-6 py-4 whitespace-nowrap">{item.course_id}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {item.no_of_items}

@@ -1,6 +1,6 @@
-"use client"
-import React, { useEffect, useState } from "react";
+"use client";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const ViewReview = () => {
   interface Post {
@@ -12,12 +12,14 @@ const ViewReview = () => {
   }
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const isAdmin = false; // Assuming this is a boolean indicating whether the user is an admin
+  const isAdmin = false; //true; // Assuming this is a boolean indicating whether the user is an admin
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/coursereview/Admin/coursereview/all");
+        const response = await axios.get(
+          "http://localhost:3000/coursereview/Admin/coursereview/all"
+        );
         const initialPosts = response.data.map((post: Post) => ({
           ...post,
           count: 0,
@@ -32,43 +34,40 @@ const ViewReview = () => {
     fetchPosts();
   }, []);
 
- const handleLikeClick = (id: number) => {
-  setPosts((prevPosts) =>
-    prevPosts.map((post) =>
-      post.id === id
-        ? {
-            ...post,
-            count: post.count + 1,
-            isLiked: true,
-          }
-        : post
-    )
-  );
-};
+  const handleLikeClick = (id: number) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === id
+          ? {
+              ...post,
+              count: post.count + 1,
+              isLiked: true,
+            }
+          : post
+      )
+    );
+  };
 
-const handleDelete = async (id: number) => {
-  try {
-    // Assuming you have an endpoint for deleting posts
-    await axios.delete(`http://localhost:3000/coursereview/Admin/${id}`);
-    setPosts(posts.filter(post => post.id !== id));
-  } catch (error) {
-    console.error("Error deleting post:", error);
-  }
-};
+  const handleDelete = async (id: number) => {
+    try {
+      // Assuming you have an endpoint for deleting posts
+      await axios.delete(`http://localhost:3000/coursereview/Admin/${id}`);
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
 
   return (
     <div className="container mx-auto py-8">
       {posts.map((post) => (
-        <div
-          key={post.id}
-          className="bg-white shadow-md rounded-lg p-4 mb-4"
-        >
+        <div key={post.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">
               {post.user_name}
             </h2>
             {isAdmin && (
-              <button 
+              <button
                 onClick={() => handleDelete(post.id)}
                 className="text-red-500 hover:text-red-700 focus:outline-none"
               >
