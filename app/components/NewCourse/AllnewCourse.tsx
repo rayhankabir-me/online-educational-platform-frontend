@@ -1,4 +1,5 @@
 'use client'
+import Cookies from "js-cookie";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -8,7 +9,12 @@ function AllnewCourse() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/newcourse/admin/all");
+        const access_token = Cookies.get("access_token");
+        const response = await axios.get("http://localhost:3000/newcourse/admin/all", {
+          headers: {
+            Authorization: `Bearer ${access_token}`
+          }
+        });
         setNewcourse(response.data);
         console.log(response.data);
       } catch (error) {
@@ -21,7 +27,12 @@ function AllnewCourse() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/newcourse/Admin/newcourse/${id}`);
+      const access_token = Cookies.get("access_token");
+      await axios.delete(`http://localhost:3000/newcourse/Admin/newcourse/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      });
       // Update the local state to reflect the deletion
       setNewcourse(newcourse.filter((newcourse) => newcourse.id !== id));
     } catch (error) {
@@ -31,7 +42,12 @@ function AllnewCourse() {
 
   const handleApprove = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/newcourse/Admin/${id}`);
+      const access_token = Cookies.get("access_token");
+      await axios.patch(`http://localhost:3000/newcourse/Admin/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      });
       
       setNewcourse(newcourse.map((newcourse) =>newcourse.id === id ? { ...newcourse, approval: true } : newcourse ));
       
