@@ -1,27 +1,25 @@
-import React from 'react'
-import ContractFrom from '../components/ContractFrom/ContractFrom'
-import HeroArea from '../components/HeroArea'
-import ViewContract from '../components/ContractFrom/ViewContract'
+import ContractFrom from "../components/ContractFrom/ContractFrom";
+import ViewContract from "../components/ContractFrom/ViewContract";
+import HeroArea from "../components/HeroArea";
 
 const ContractUs = () => {
-  const isAdmin =true;
-  const isStudent = false
+  const isAdmin = false;
+  const isStudent = true;
   return (
     <>
-    <div>
+      <div>
         <HeroArea
-        title="Contract Us"
-        description="We are always connected with you and ready to help. Feel free to ask anything"
-      />
-    </div>
-    <div>
-      {isAdmin && <ViewContract />}
+          title="Contract Us"
+          description="We are always connected with you and ready to help. Feel free to ask anything"
+        />
+      </div>
+      <div>
+        {isAdmin && <ViewContract />}
 
-        {isStudent && <ViewContract />}
-    </div>
+        {isStudent && <ContractFrom />}
+      </div>
     </>
-    
-  )
-}
+  );
+};
 
-export default ContractUs
+export default ContractUs;
