@@ -5,31 +5,35 @@ import { useEffect, useState } from "react";
 
 function Allapplicants() {
   const [applicants, setApplicants] = useState([]);
-  const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
-    const access_token = Cookies.get("access_token");
-    setAccessToken(access_token);
-  }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/applyinstructor/Admin/all"
-        );
-        setApplicants(response.data);
-      } catch (error) {
-        console.error("Error fetching applicants:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const access_token = Cookies.get("access_token");
+      const response = await axios.get(
+        "http://localhost:3000/applyinstructor/Admin/all",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`, // Include access token in the headers
+          },
+        }
+      );
+      setApplicants(response.data);
+    } catch (error) {
+      console.error("Error fetching applicants:", error);
+    }
+  };
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/applyinstructor/${id}`);
-      
+      await axios.delete(`http://localhost:3000/applyinstructor/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`, // Include access token in the headers
+        },
+      });
       setApplicants(applicants.filter((applicant) => applicant.id !== id));
     } catch (error) {
       console.error("Error deleting applicant:", error);
@@ -38,10 +42,16 @@ function Allapplicants() {
 
   const handleApprove = async (id) => {
     try {
+      const access_token = Cookies.get("access_token");
       await axios.patch(
-        `http://localhost:3000/applyinstructor/Admin/applyinstructor/${id}`
+        `http://localhost:3000/applyinstructor/Admin/applyinstructor/${id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`, // Include access token in the headers
+          },
+        }
       );
-     
       setApplicants(
         applicants.map((applicant) =>
           applicant.id === id ? { ...applicant, approval: true } : applicant
@@ -57,6 +67,7 @@ function Allapplicants() {
       <div>
         <div className="flex justify-center"></div>
         <table className="min-w-full divide-y divide-gray-200 py-3">
+          {/* Table headers */}
           <thead>
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
@@ -77,6 +88,7 @@ function Allapplicants() {
             </tr>
           </thead>
           <tbody>
+            {/* Table body */}
             {applicants.map((applicant, index) => (
               <tr key={index} className="bg-gray divide-y divide-gray-200">
                 <td className="px-6 py-4 whitespace-nowrap">
