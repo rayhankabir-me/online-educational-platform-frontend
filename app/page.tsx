@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import bg from "../public/bg.png";
 
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col justify-center items-center relative">

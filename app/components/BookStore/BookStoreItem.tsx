@@ -49,7 +49,7 @@ function BookStoreItem() {
           Stock
         </th>
         <th className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-          Price
+          Price($)
         </th>
         
       </tr>
@@ -64,15 +64,23 @@ function BookStoreItem() {
           <td className="px-6 py-4 whitespace-nowrap">{book.description}</td>
           <td className="px-6 py-4 whitespace-nowrap">{book.stock}</td>
           <td className="px-6 py-4 whitespace-nowrap">{book.price}</td>
-          
+
           <td className="px-6 py-4 whitespace-nowrap">
+                <a href={`/payment/${book.id}`}>
+                  <button className="text-blue-500 hover:text-blue-700">
+                    Buy
+                  </button>
+                </a>
+              </td>
+          
+          {/* <td className="px-6 py-4 whitespace-nowrap">
             <button
               onClick={() => handleDelete(book.id)}
               className="text-red-500 hover:text-red-700 mr-2"
             >
               Delete
             </button>
-          </td>
+          </td> */}
         </tr>
       ))}
     </tbody>

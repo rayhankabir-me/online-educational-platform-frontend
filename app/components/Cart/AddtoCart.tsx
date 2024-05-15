@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const AddtoCart = () => {
 
-const [course_id, setcid] = useState('Abdullah');
+const [course_id, setcid] = useState('me');
   const [category_id, setcatid] = useState('');
   const [no_of_items, setno] = useState('');
   const [price, setPrice] = useState('');

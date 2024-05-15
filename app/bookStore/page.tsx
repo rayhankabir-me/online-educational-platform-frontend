@@ -1,5 +1,7 @@
 import HeroArea from "../components/HeroArea";
 import BookStoreItem from "../components/BookStore/BookStoreItem";
+import Image from "next/image";
+import bg from "../../public/bg.png";
 
 export default function AllBooks() {
   return (
