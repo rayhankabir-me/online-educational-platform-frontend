@@ -48,7 +48,7 @@ export default function AllCategories() {
 
     try {
       await axios.delete(
-        process.env.NEXT_PUBLIC_BACKEND_API + `/courses/${id}`,
+        process.env.NEXT_PUBLIC_BACKEND_API + `/categories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -173,7 +173,7 @@ export default function AllCategories() {
                     </td>
                     <td className="flex items-center px-6 py-4">
                       <Link
-                        href={`/dashboard/update-course/${category.id}`}
+                        href={`/dashboard/update_category/${category.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit

@@ -42,7 +42,7 @@ export default function AddUser() {
     try {
       formData.role = "student";
       const response = await axios.post(
-        process.env.NEXT_PUBLIC_BACKEND_API + "/courses/create",
+        process.env.NEXT_PUBLIC_BACKEND_API + "/auth/register",
         formData,
         {
           headers: {
@@ -64,179 +64,139 @@ export default function AddUser() {
   };
 
   return (
-    <div className="p-4 sm:ml-64">
-      <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <div className="flex items-center justify-center mb-4 rounded bg-gray-50 dark:bg-gray-800">
-          <div className="px-4 py-8 w-full">
-            <form onSubmit={handleSubmit(submitForm)}>
-              <div className="mb-5">
-                <label
-                  htmlFor="title"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Course Title
-                </label>
-                <input
-                  {...register("title", {
-                    required: "Your must fill course title...",
-                  })}
-                  type="title"
-                  id="title"
-                  name="title"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                />
-                {errors.title?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.title?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="description"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Course Description
-                </label>
-                <textarea
-                  {...register("description", {
-                    required: "Your must fill course description..",
-                  })}
-                  id="description"
-                  name="description"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                />
-                {errors.description?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.description?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="image"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Image Url
-                </label>
-                <input
-                  {...register("image", {
-                    required: "You must provide an image...",
-                  })}
-                  type="text"
-                  id="image"
-                  name="image"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                />
-                {errors.image?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.image?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Course Price
-                </label>
-                <input
-                  {...register("price", {
-                    required: "You must fill price...",
-                  })}
-                  type="text"
-                  id="price"
-                  name="price"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                />
-                {errors.price?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.price?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="rating"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Course Rating
-                </label>
-                <input
-                  {...register("rating", {
-                    required: "You must fill price...",
-                  })}
-                  type="number"
-                  id="rating"
-                  name="rating"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                />
-                {errors.rating?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.rating?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="categoryId"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Select Course Category
-                </label>
-                <select
-                  {...register("categoryId", {
-                    required: "You must select course category...",
-                  })}
-                  id="categoryId"
-                  name="categoryId"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.category_name}
-                    </option>
-                  ))}
-                </select>
-                {errors.categoryId?.message && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    <span className="font-medium">Oh, sorry!</span>{" "}
-                    {errors.categoryId?.message}
-                  </p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Add Course
-              </button>
-
-              {successMessage && (
-                <div className="mt-8 flex items-center">
-                  <p className="text-sm text-green-600 dark:text-green-500">
-                    <span className="font-medium">Great!</span> {successMessage}
-                  </p>
-                </div>
-              )}
-
-              {errors?.root?.random?.message && (
-                <p className="mt-8 text-sm text-red-600 dark:text-red-500">
-                  <span className="font-medium">Oh, sorry!</span>{" "}
-                  {errors?.root?.random?.message}!
-                </p>
-              )}
-            </form>
-          </div>
+    <div className="mt-40 px-10 py-10 w-2/5 mx-auto registratio-form dark:bg-gray-700">
+      <form onSubmit={handleSubmit(submitForm)}>
+        <div className="mb-5">
+          <label
+            htmlFor="username"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your Username
+          </label>
+          <input
+            {...register("username", {
+              required: "Your must fill username...",
+            })}
+            type="username"
+            id="username"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            placeholder="jhon"
+          />
+          {errors.username?.message && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">Oh, sorry!</span>{" "}
+              {errors.username?.message}
+            </p>
+          )}
         </div>
-      </div>
+        <div className="mb-5">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your email
+          </label>
+          <input
+            {...register("email", {
+              required: "Your must need an email..",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Please enter a valid email address...",
+              },
+            })}
+            type="email"
+            id="email"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            placeholder="example@gmail.com"
+          />
+          {errors.email?.message && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">Oh, sorry!</span>{" "}
+              {errors.email?.message}
+            </p>
+          )}
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your password
+          </label>
+          <input
+            {...register("password", {
+              required: "You must fill password...",
+              minLength: {
+                value: 8,
+                message: "Your password must be at least 8 characters..",
+              },
+              pattern: {
+                value: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                message:
+                  "Password too weak. Use numbers, characters, capital and small letters",
+              },
+            })}
+            type="password"
+            id="password"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          />
+          {errors.password?.message && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">Oh, sorry!</span>{" "}
+              {errors.password?.message}
+            </p>
+          )}
+        </div>
+
+        <div className="mb-5">
+          <label
+            htmlFor="role"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Select User Role
+          </label>
+          <select
+            {...register("role", {
+              required: "You must select course category...",
+            })}
+            id="role"
+            name="role"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+            <option value="admin">Admin</option>
+          </select>
+          {errors.role?.message && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">Oh, sorry!</span>{" "}
+              {errors.role?.message}
+            </p>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Add User
+        </button>
+
+        {successMessage && (
+          <div className="mt-8 flex items-center">
+            <p className="text-sm text-green-600 dark:text-green-500">
+              <span className="font-medium">Great!</span> {successMessage}
+            </p>
+          </div>
+        )}
+
+        {errors?.root?.random?.message && (
+          <p className="mt-8 text-sm text-red-600 dark:text-red-500">
+            <span className="font-medium">Oh, sorry!</span>{" "}
+            {errors?.root?.random?.message}!
+          </p>
+        )}
+      </form>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-export default function UpdateCourse({ id }) {
+export default function UpdateCategory({ id }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [accessToken, setAccessToken] = useState(null);
   const [currentId, setCurrentId] = useState(id);
@@ -42,7 +42,6 @@ export default function UpdateCourse({ id }) {
   } = useForm();
 
   const submitForm = async (formData) => {
-    formData.updated_at = "2024-03-23T22:03:35.160Z";
     try {
       const response = await axios.patch(
         process.env.NEXT_PUBLIC_BACKEND_API + "/categories/" + currentId,
@@ -127,12 +126,12 @@ export default function UpdateCourse({ id }) {
                   Image Url
                 </label>
                 <input
-                  {...register("image", {
+                  {...register("image_url", {
                     required: "You must provide an image...",
                   })}
                   type="text"
-                  id="image"
-                  name="image"
+                  id="image_url"
+                  name="image_url"
                   defaultValue={categoryData.image}
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 />
