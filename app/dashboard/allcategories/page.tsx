@@ -57,11 +57,16 @@ export default function AllCategories() {
       );
       // Refresh courses after deletion
       const response = await axios.get(
-        process.env.NEXT_PUBLIC_BACKEND_API + "/categories/"
+        process.env.NEXT_PUBLIC_BACKEND_API + "/categories/",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      setCourses(response.data);
+      setCategories(response.data);
     } catch (error) {
-      alert("Error deleting course:", error);
+      console.log("Error deleting course:", error);
       // Handle error here
     }
   };

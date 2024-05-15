@@ -1,11 +1,11 @@
 "use client";
 
 import axios from "axios";
-import { useRouter } from "next/navigation";
-
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 export default function AllUsers() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
@@ -13,15 +13,24 @@ export default function AllUsers() {
   const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
 
-  //getting the access token for user
+  // Getting the access token for the user
   useEffect(() => {
     const access_token = Cookies.get("access_token");
-    setAccessToken(access_token);
+    if (access_token) {
+      setAccessToken(access_token);
+    } else {
+      setError(new Error("Access token not found"));
+      setLoading(false);
+    }
   }, []);
 
-  //getting the courses data
+  // Getting the courses data
   useEffect(() => {
     async function fetchCourses() {
+      if (!accessToken) {
+        return;
+      }
+
       try {
         const response = await axios.get(
           process.env.NEXT_PUBLIC_BACKEND_API + "/auth/all-users/",
@@ -34,6 +43,7 @@ export default function AllUsers() {
         setCourses(response.data);
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching courses:", error);
         setError(error);
         setLoading(false);
       }
@@ -42,7 +52,7 @@ export default function AllUsers() {
     fetchCourses();
   }, [accessToken]);
 
-  //delete course
+  // Delete course
   const handleDeleteCourse = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this user?"
@@ -69,8 +79,8 @@ export default function AllUsers() {
       );
       setCourses(response.data);
     } catch (error) {
-      alert("Error deleting users:", error);
-      // Handle error here
+      console.error("Error deleting user:", error);
+      alert("Error deleting user:", error.message);
     }
   };
 
@@ -120,9 +130,9 @@ export default function AllUsers() {
         >
           <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
         </svg>
-        <span className="sr-only">Info</span>
+        <span className="sr-only">Error</span>
         <div>
-          <span className="font-medium">Error!</span> {error.message}.
+          <span className="font-medium">Error:</span> {error.message}.
         </div>
       </div>
     );
@@ -142,11 +152,9 @@ export default function AllUsers() {
                   <th scope="col" className="px-6 py-3">
                     User Name
                   </th>
-
                   <th scope="col" className="px-6 py-3">
                     Role
                   </th>
-
                   <th scope="col" className="px-6 py-3">
                     Action
                   </th>
@@ -160,8 +168,7 @@ export default function AllUsers() {
                   >
                     <td className="px-6 py-4">{course.id}</td>
                     <td className="px-6 py-4">{course.username}</td>
-                    <td className="px-6 py-4"> {course.role}</td>
-
+                    <td className="px-6 py-4">{course.role}</td>
                     <td className="flex items-center px-6 py-4">
                       <Link
                         href={`/dashboard/update-course/${course.id}`}
