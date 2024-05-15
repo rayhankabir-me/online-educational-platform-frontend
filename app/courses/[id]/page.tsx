@@ -3,6 +3,7 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
@@ -136,6 +137,7 @@ export default function CourseDetails({ params }) {
               <h4>
                 Category: <strong>{courseData.category.category_name}</strong>
               </h4>
+              <Link href={`/Reviewcourse/`}>Review Course</Link>
             </div>
           </article>
         </div>

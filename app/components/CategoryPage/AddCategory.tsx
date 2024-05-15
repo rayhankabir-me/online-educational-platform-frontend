@@ -1,6 +1,7 @@
+"use client";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 const AddCategory = ({ editCategory, setReload }) => {
   const [name, setName] = useState("");
