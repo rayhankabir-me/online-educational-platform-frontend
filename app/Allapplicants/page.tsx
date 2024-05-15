@@ -1,10 +1,16 @@
 "use client";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 function Allapplicants() {
   const [applicants, setApplicants] = useState([]);
+  const [accessToken, setAccessToken] = useState(null);
 
+  useEffect(() => {
+    const access_token = Cookies.get("access_token");
+    setAccessToken(access_token);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
