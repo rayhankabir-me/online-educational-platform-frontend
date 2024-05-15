@@ -12,7 +12,7 @@ const ViewReview = () => {
   }
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const isAdmin = false; //true; // Assuming this is a boolean indicating whether the user is an admin
+  const isAdmin = true; // Assuming this is a boolean indicating whether the user is an admin
 
   useEffect(() => {
     const fetchPosts = async () => {

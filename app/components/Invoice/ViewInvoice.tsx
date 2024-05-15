@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
-
+import Cookies from "js-cookie";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+const access_token = Cookies.get("access_token");
 
 const ViewInvoice = () => {
   const [invoices, setInvoices] = useState([]);
@@ -11,20 +12,27 @@ const ViewInvoice = () => {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/invoice");
+        const response = await axios.get("http://localhost:3000/blog", {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
         setInvoices(response.data);
       } catch (error) {
         console.error("Error fetching invoices:", error);
       }
     };
-  
+
     fetchInvoices();
   }, []);
-  
 
   const handleDeleteInvoice = async (invNumber: string) => {
     try {
-      await axios.delete(`http://localhost:3000/invoice/${invNumber}`);
+      await axios.delete(`http://localhost:3000/invoice/${invNumber}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
       setInvoices((prevInvoices) =>
         prevInvoices.filter((invoice) => invoice.inv_number !== invNumber)
       );
@@ -32,7 +40,6 @@ const ViewInvoice = () => {
       console.error("Error deleting invoice:", error);
     }
   };
-  
 
   const groupedInvoices = invoices.reduce<{ [key: string]: any[] }>(
     (acc, invoice) => {
@@ -57,7 +64,11 @@ const ViewInvoice = () => {
             {isAdmin && (
               <button
                 type="button"
-                onClick={() => handleDeleteInvoice(groupedInvoices[transactionId][0].inv_number)}
+                onClick={() =>
+                  handleDeleteInvoice(
+                    groupedInvoices[transactionId][0].inv_number
+                  )
+                }
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
                 Delete
