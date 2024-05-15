@@ -4,12 +4,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import Cookies from "js-cookie";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import CourseImage from "../../../public/course_image.webp";
-export default function AllCategories() {
-  const [categories, setCategories] = useState([]);
+export default function AllUsers() {
+  const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState(null);
@@ -21,14 +19,19 @@ export default function AllCategories() {
     setAccessToken(access_token);
   }, []);
 
-  //getting the categories data
+  //getting the courses data
   useEffect(() => {
-    async function fetchCategories() {
+    async function fetchCourses() {
       try {
         const response = await axios.get(
-          process.env.NEXT_PUBLIC_BACKEND_API + "/categories/"
+          process.env.NEXT_PUBLIC_BACKEND_API + "/auth/all-users/",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         );
-        setCategories(response.data);
+        setCourses(response.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -36,19 +39,19 @@ export default function AllCategories() {
       }
     }
 
-    fetchCategories();
-  }, []);
+    fetchCourses();
+  }, [accessToken]);
 
   //delete course
   const handleDeleteCourse = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this category?"
+      "Are you sure you want to delete this user?"
     );
     if (!confirmDelete) return;
 
     try {
       await axios.delete(
-        process.env.NEXT_PUBLIC_BACKEND_API + `/categories/${id}`,
+        process.env.NEXT_PUBLIC_BACKEND_API + `/auth/all-users/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -57,11 +60,16 @@ export default function AllCategories() {
       );
       // Refresh courses after deletion
       const response = await axios.get(
-        process.env.NEXT_PUBLIC_BACKEND_API + "/categories/"
+        process.env.NEXT_PUBLIC_BACKEND_API + "/auth/all-users/",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
       setCourses(response.data);
     } catch (error) {
-      alert("Error deleting course:", error);
+      alert("Error deleting users:", error);
       // Handle error here
     }
   };
@@ -128,58 +136,41 @@ export default function AllCategories() {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" className="px-6 py-3"></th>
                   <th scope="col" className="px-6 py-3">
-                    Image Url
+                    Id
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    User Name
                   </th>
 
                   <th scope="col" className="px-6 py-3">
-                    Name
+                    Role
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Description
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Created By
-                  </th>
+
                   <th scope="col" className="px-6 py-3">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {categories.map((category) => (
+                {courses.map((course) => (
                   <tr
-                    key={category.id}
+                    key={course.id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      <Image
-                        src={CourseImage}
-                        width={100}
-                        height={80}
-                        alt="Courese Image"
-                      />
-                    </th>
+                    <td className="px-6 py-4">{course.id}</td>
+                    <td className="px-6 py-4">{course.username}</td>
+                    <td className="px-6 py-4"> {course.role}</td>
 
-                    <td className="px-6 py-4">{category.category_name}</td>
-                    <td className="px-6 py-4"> {category.description}</td>
-
-                    <td className="px-6 py-4">
-                      {category.created_by.username}
-                    </td>
                     <td className="flex items-center px-6 py-4">
                       <Link
-                        href={`/dashboard/update_category/${category.id}`}
+                        href={`/dashboard/update-course/${course.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
                       </Link>
                       <button
-                        onClick={() => handleDeleteCourse(category.id)}
+                        onClick={() => handleDeleteCourse(course.id)}
                         className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                       >
                         Remove
